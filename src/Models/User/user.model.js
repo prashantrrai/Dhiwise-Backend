@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    customerId: {
-        type: Object,
-        ref: User
-    },
     username: {
         type: String,
         required: [true, 'Username is required'],
@@ -55,8 +51,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
-        minlength: [8, 'Password must be at least 8 characters'],
-        match: [/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/, 'Password must contain at least one lowercase letter, one number, one special character']
+        // minlength: [8, 'Password must be at least 8 characters'],
+        // match: [/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/, 'Password must contain at least one lowercase letter, one number, one special character']
     },
     phone: {
         type: String,
