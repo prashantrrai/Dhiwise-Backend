@@ -1,7 +1,7 @@
 // Importing Packages and Libraries
 const express = require("express");
 const cors = require('cors');
-
+const config = require('./Config/URL/config');
 
 // Extracting files and configurations
 require("dotenv").config();
@@ -30,11 +30,12 @@ app.use("/api/v1", user);
 
 
 // Default route
-app.get('/api/v1', (req, res) => {
+app.get('/', (req, res) => {
     try {
         res.status(200).json({
             success: true,
-            message: "Welcome to Admin Panel"
+            message: "Welcome to Dhiwise",
+            server: `Backend URL is: ${config.backendUrl}`
         });
     } catch (error) {
         console.error("ERROR IN Home ROUTE:", error);
@@ -46,6 +47,6 @@ app.get('/api/v1', (req, res) => {
 
 // Server listening
 app.listen(PORT, () => {
-    console.log(`Development Server is running on http://localhost:${PORT}/api/v1`);
-    console.log(`Production Server is running on https://${process.env.SERVER_URL}`);
+    console.log(`App running on port ${PORT}`);
+    console.log(`Server is running on ${config.backendUrl}`);
 })
