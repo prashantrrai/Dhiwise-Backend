@@ -11,6 +11,7 @@ require("./Config/DB/connection");
 // Import Routes
 const home = require("./src/Routes/Home/home.route");
 const user = require("./src/Routes/User/user.route");
+const auth = require("./src/Routes/Authentication/auth.route");
 
 
 // setting configurations
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 // Use Routes as middlewares
 app.use("/api/v1", home);
 app.use("/api/v1", user);
+app.use("/api/v1", auth);
 
 
 // Default route

@@ -1,8 +1,12 @@
 // Importing Packages and Libraries
 const bcrypt = require('bcrypt');
-
+const fs = require('fs');
+const util = require('util');
+const { sendMail } = require('../Email/email.service');
 const User = require("../../Models/User/user.model");
 
+// Promisify fs.readFile
+const readFile = util.promisify(fs.readFile);
 
 
 const registerUser = async (userData) => {
@@ -38,13 +42,13 @@ const registerUser = async (userData) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Load HTML template for forgot password email
-        //const template = await readFile('src/templates/registration-success.html', 'utf8');
+        const template = await readFile('src/Templates/Email/RegistrationSuccess.html', 'utf8');
 
         // compose email content
-        // const subject = 'Registration Successful';
-        // const description = template.replace('{{ username }}', username).replace('{{ password }}', password).replace('{{ firstname }}', profile.firstName).replace('{{ lastname }}', profile.lastName);
+        const subject = 'Registration Successful';
+        const description = template.replace('{{ username }}', username).replace('{{ password }}', password).replace('{{ firstname }}', profile.firstName).replace('{{ lastname }}', profile.lastName);
 
-        // await sendMail(email, subject, description);
+        await sendMail(email, subject, description);
 
         // Create and save the user in a single step
         const result = await User.create({
