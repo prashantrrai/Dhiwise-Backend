@@ -5,7 +5,8 @@ const config = require('./Config/URL/config');
 
 // Extracting files and configurations
 require("dotenv").config();
-require("./Config/DB/connection");
+const connectDB = require("./Config/DB/connection");
+connectDB();
 
 
 // Import Routes
