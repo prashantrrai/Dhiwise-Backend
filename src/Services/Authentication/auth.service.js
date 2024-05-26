@@ -31,9 +31,14 @@ const login = async (credentials) => {
             role: user.roleDetails
         }, secretKey, { expiresIn: '1h' });
 
-        // update field lastLogin with time stamp
+        // Extract IP address from the request
+        // const userIp = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+        // Update lastLogins field with timestamp and IP address
         await User.findByIdAndUpdate(user._id, {
-            lastLogin: Date.now(),
+            $push: {
+                lastLogins: {}
+            }
         });
 
         return token;

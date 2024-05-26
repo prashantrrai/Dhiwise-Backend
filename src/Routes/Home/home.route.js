@@ -2,9 +2,9 @@ const { Router } = require('express');
 const { STATUS_OK, STATUS_ERROR, MESSAGE_OK, MESSAGE_ERROR } = require("../../Constants/message.constant");
 
 
-const home = Router();
+const homeRouter = Router();
 
-home.get('/', (req, res) => {
+homeRouter.get('/', (req, res) => {
     try {
         res.status(STATUS_OK).json({
             success: true,
@@ -20,4 +20,4 @@ home.get('/', (req, res) => {
     }
 });
 
-module.exports = home;
+module.exports = homeRouter;

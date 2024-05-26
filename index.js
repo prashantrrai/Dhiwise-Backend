@@ -10,9 +10,9 @@ connectDB();
 
 
 // Import Routes
-const home = require("./src/Routes/Home/home.route");
-const user = require("./src/Routes/User/user.route");
-const auth = require("./src/Routes/Authentication/auth.route");
+const homeRouter = require("./src/Routes/Home/home.route");
+const userRouter = require("./src/Routes/User/user.route");
+const authRouter = require("./src/Routes/Authentication/auth.route");
 
 
 // setting configurations
@@ -26,11 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-// Use Routes as middlewares
-app.use("/api/v1", home);
-app.use("/api/v1", user);
-app.use("/api/v1", auth);
+// Create a new router for /api/v1 & Use Routes as middlewares
+const apiRouter = express.Router();
 
+apiRouter.use('/home', homeRouter);
+apiRouter.use('/user', userRouter);
+apiRouter.use('/auth', authRouter);
+
+// Use the apiRouter
+app.use('/api/v1', apiRouter);
 
 // Default route
 app.get('/', (req, res) => {

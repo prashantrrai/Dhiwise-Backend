@@ -75,12 +75,17 @@ const userSchema = new Schema({
         },
     },
     lastLogins: [{
-        date: {
+        Date: {
             type: Date,
             default: Date.now
         },
-        ip: {
+        IPv4: {
             type: String,
+            default: "49.34.120.205"
+        },
+        IPv6: {
+            type: String,
+            default: "2409:4080:9c81:5cd9:b4c5:5f99:b5bd:f628"
         }
     }],
     password_last_Changed: {
