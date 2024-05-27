@@ -4,15 +4,14 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "Product Name is Required."]
     },
     description: {
         type: String,
-        required: true
     },
     price: {
         type: Number,
-        required: true
+        required: [true, "Price is Required."]
     },
     stock: {
         isAvailable: {
@@ -26,20 +25,20 @@ const productSchema = new Schema({
     },
     category: {
         type: String,
-        required: true
+        required: [true, "Category is Required."]
     },
     supplier: {
         name: {
             type: String,
-            required: true
+            required: [true, "Supplier Name is Required."]
         },
         contact: {
             type: String,
-            required: true
+            required: [true, "Supplier Contact is Required."]
         },
         address: {
             type: String,
-            required: true
+            required: [true, "Supplier Address is Required."]
         }
     },
     reviews: [
@@ -50,11 +49,9 @@ const productSchema = new Schema({
             },
             rating: {
                 type: Number,
-                required: true
             },
             comment: {
                 type: String,
-                required: true
             },
             created_At: {
                 type: Date,
