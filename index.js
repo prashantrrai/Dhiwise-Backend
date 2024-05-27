@@ -1,14 +1,24 @@
+// Importing Packages and Libraries
 const express = require("express");
 const cors = require('cors');
+const config = require('./Config/URL/config');
 
+// Extracting files and configurations
 require("dotenv").config();
-require("./src/DB/connection");
+const connectDB = require("./Config/DB/connection");
+connectDB();
 
 
+// Import Routes
+const homeRouter = require("./src/Routes/Home/home.route");
+const userRouter = require("./src/Routes/User/user.route");
+const authRouter = require("./src/Routes/Authentication/auth.route");
 
-// configurations
+
+// setting configurations
 const app = express();
 const PORT = process.env.PORT || 8080;
+
 
 // middlewares
 app.use(cors());
@@ -16,12 +26,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
+// Create a new router for /api/v1 & Use Routes as middlewares
+const apiRouter = express.Router();
 
-app.get('/api/v1', (req, res) => {
+apiRouter.use('/home', homeRouter);
+apiRouter.use('/user', userRouter);
+apiRouter.use('/auth', authRouter);
+
+// Use the apiRouter
+app.use('/api/v1', apiRouter);
+
+// Default route
+app.get('/', (req, res) => {
     try {
         res.status(200).json({
             success: true,
-            message: "Welcome to Admin Panel"
+            message: "Welcome to Dhiwise",
+            server: `Backend URL is: ${config.backendUrl}`
         });
     } catch (error) {
         console.error("ERROR IN Home ROUTE:", error);
@@ -31,8 +52,8 @@ app.get('/api/v1', (req, res) => {
     }
 });
 
-// server listening
+// Server listening
 app.listen(PORT, () => {
-    console.log(`Development Server is running on http://localhost:${PORT}/api/v1`);
-    console.log(`Production Server is running on https://${process.env.SERVER_URL}`);
+    console.log(`App running on port ${PORT}`);
+    console.log(`Server is running on ${config.backendUrl}`);
 })
