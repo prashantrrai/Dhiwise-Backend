@@ -1,31 +1,30 @@
 // Importing Packages and Libraries
-const bcrypt = require('bcrypt');
 const User = require("../../Models/User/user.model");
 
 
-const getUser = async () => {
+const GetUser = async () => {
     try {
         const userData = await User.find();
         return userData;
     } catch (error) {
-        console.error("ERROR IN getUser SERVICE:", error);
+        console.error("ERROR IN GetUser SERVICE:", error);
         throw error;
     }
 }
 
-const getUserById = async (Id) => {
+const GetUserById = async (Id) => {
     try {
         const userData = await User.findById(Id);
         return userData;
     } catch (error) {
-        console.error("ERROR IN getUserById SERVICE:", error);
+        console.error("ERROR IN GetUserById SERVICE:", error);
         throw error;
     }
 }
 
-const editUser = async (id, userData) => {
+const EditUser = async (id, userData) => {
     try {
-        const { username, profile, email, password, phone, roleId, verificationStatus } = userData;
+        const { username, profile, email, phone, role, verificationStatus } = userData;
         const user = await User.findById(id);
 
         // User exists, proceed with edit
@@ -33,35 +32,25 @@ const editUser = async (id, userData) => {
             throw new Error('Sorry, user not found');
         }
 
-        // Password validation
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-        if (!regex.test(password)) {
-            throw new Error('Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character, and be at least 8 characters long.');
-        }
-
-        // Hashing the password before saving it.
-        const hashedPassword = await bcrypt.hash(password, 10);
-
         // Update user data
         user.username = username;
         user.profile = profile;
         user.email = email;
-        user.password = hashedPassword;
         user.phone = phone;
-        user.roleId = roleId;
+        user.role = role;
         user.verificationStatus = verificationStatus;
-        user.password_last_Changed = Date.now;
+        user.password_last_Changed = Date.now();
         user.updatedBy = user._id;
 
         return updatedUser = await user.save();
 
     } catch (error) {
-        console.error('ERROR IN editUser SERVICE:', error);
+        console.error('ERROR IN EditUser SERVICE:', error);
         throw error;
     }
 }
 
-const deleteUser = async (id) => {
+const RemoveUser = async (id) => {
     try {
 
         const user = await User.findById(id);
@@ -74,10 +63,10 @@ const deleteUser = async (id) => {
         return await User.findByIdAndDelete(id);
 
     } catch (error) {
-        console.error('ERROR IN deleteUser SERVICE:', error);
+        console.error('ERROR IN RemoveUser SERVICE:', error);
         throw error;
     }
 }
 
 
-module.exports = { getUser, getUserById, editUser, deleteUser };
+module.exports = { GetUser, GetUserById, EditUser, RemoveUser };
