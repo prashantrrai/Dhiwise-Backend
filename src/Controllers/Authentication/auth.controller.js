@@ -21,5 +21,24 @@ const login = async (req, res) => {
     }
 };
 
+const signup = async (req, res) => {
+    try {
+        const userData = req.body;
+        const data = await service.signup(userData);
 
-module.exports = { login };
+        res.status(STATUS_OK).json({
+            success: true,
+            message: "Signup Successfully",
+            token: data
+        })
+    } catch (error) {
+        console.error("ERROR IN login CONTROLLER:", error);
+        return res.status(STATUS_ERROR).json({
+            success: false,
+            message: error.message,
+        })
+    }
+};
+
+
+module.exports = { login, signup };

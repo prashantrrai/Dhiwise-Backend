@@ -1,24 +1,6 @@
-const { STATUS_CREATED, MESSAGE_REGISTER, STATUS_ERROR, MESSAGE_ERROR, MESSAGE_FETCHED, STATUS_OK, MESSAGE_DELETED, MESSAGE_UPDATED } = require("../../Constants/message.constant");
+const { STATUS_ERROR, MESSAGE_ERROR, MESSAGE_FETCHED, STATUS_OK, MESSAGE_DELETED, MESSAGE_UPDATED } = require("../../Constants/message.constant");
 const service = require("../../Services/User/user.service");
 
-const registerUser = async (req, res) => {
-    try {
-        const userData = await service.registerUser(req.body);
-
-        res.status(STATUS_CREATED).json({
-            success: true,
-            message: MESSAGE_REGISTER,
-            response: userData
-        })
-    } catch (error) {
-        console.error("ERROR IN registerUser CONTROLLER:", error);
-        return res.status(STATUS_ERROR).json({
-            success: false,
-            message: MESSAGE_ERROR,
-            error: error.message
-        })
-    }
-}
 
 const getUser = async (req, res) => {
     try {
@@ -100,4 +82,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { registerUser, getUser, getUserById, editUser, deleteUser };
+module.exports = { getUser, getUserById, editUser, deleteUser };

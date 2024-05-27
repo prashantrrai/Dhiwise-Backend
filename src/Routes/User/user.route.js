@@ -1,12 +1,9 @@
 const { Router } = require("express");
-const { registerUser, getUser, getUserById, editUser, deleteUser } = require("../../Controllers/User/user.controller");
+const { getUser, getUserById, editUser, deleteUser } = require("../../Controllers/User/user.controller");
 const { authenticateToken } = require("../../Middlewares/Authentication/auth.middleware");
 
 
 const userRouter = Router();
-
-// Route to register a new user
-userRouter.post("/", registerUser);
 
 // Route to get all users
 userRouter.get("/", getUser);

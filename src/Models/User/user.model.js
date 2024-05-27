@@ -10,18 +10,12 @@ const userSchema = new Schema({
         unique: true,
     },
     profile: {
-        firstName: {
-            type: String,
-            required: [true, 'First name is required']
-        },
+        firstName: {},
         middleName: {
             type: String,
             required: false
         },
-        lastName: {
-            type: String,
-            required: [true, 'Last name is required']
-        },
+        lastName: {},
         DOB: {
             type: Date,
             required: false
@@ -51,17 +45,12 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
-        // minlength: [8, 'Password must be at least 8 characters'],
-        // match: [/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/, 'Password must contain at least one lowercase letter, one number, one special character']
     },
-    phone: {
-        type: String,
-        required: [true, 'Phone Number is required'],
-    },
+    phone: {},
     roleId: {
         type: Number,
-        required: [true, 'RoleId is required'],
         enum: [1, 2, 3],
+        default: 3
     },
     roleDetails: {},
     verificationStatus: {
@@ -90,8 +79,15 @@ const userSchema = new Schema({
     }],
     password_last_Changed: {
         type: Date,
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    updatedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
-
 },
     {
         timestamps: true
