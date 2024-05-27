@@ -47,12 +47,10 @@ const userSchema = new Schema({
         required: [true, 'Password is required'],
     },
     phone: {},
-    roleId: {
-        type: Number,
-        enum: [1, 2, 3],
-        default: 3
+    role: {
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
     },
-    roleDetails: {},
     verificationStatus: {
         isActive: {
             type: Boolean,
@@ -94,32 +92,6 @@ const userSchema = new Schema({
     }
 
 );
-
-
-// Pre-save hook to set roleDetails based on roleId
-userSchema.pre('save', function (next) {
-    const roleIdDetailsMap = {
-        1: "Admin",
-        2: "Employee",
-        3: "Customer"
-    };
-
-    this.roleDetails = roleIdDetailsMap[this.roleId];
-    next();
-});
-
-// Customize response object to include roleDetails inside roleId
-userSchema.set('toJSON', {
-    transform: function (doc, ret, options) {
-        ret.roleId = {
-            id: ret.roleId,
-            role: doc.roleDetails
-        };
-        delete ret.roleDetails;
-        return ret;
-    }
-});
-
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

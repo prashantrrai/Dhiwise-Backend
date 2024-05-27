@@ -92,7 +92,7 @@ const signup = async (userData) => {
         const subject = 'Registration Successful';
         const description = template.replace('{{ username }}', username).replace('{{ email }}', email).replace('{{ password }}', password);
 
-        await sendMail(email, subject, description);
+        // await sendMail(email, subject, description);
 
         // Create and save the user in a single step
         const result = await User.create({
