@@ -4,15 +4,14 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "Product Name is Required."]
     },
     description: {
         type: String,
-        required: true
     },
     price: {
         type: Number,
-        required: true
+        required: [true, "Price is Required."]
     },
     stock: {
         isAvailable: {
@@ -26,20 +25,20 @@ const productSchema = new Schema({
     },
     category: {
         type: String,
-        required: true
+        required: [true, "Category is Required."]
     },
     supplier: {
         name: {
             type: String,
-            required: true
+            required: [true, "Supplier Name is Required."]
         },
         contact: {
             type: String,
-            required: true
+            required: [true, "Supplier Contact is Required."]
         },
         address: {
             type: String,
-            required: true
+            required: [true, "Supplier Address is Required."]
         }
     },
     reviews: [
@@ -50,18 +49,20 @@ const productSchema = new Schema({
             },
             rating: {
                 type: Number,
-                required: true
             },
             comment: {
                 type: String,
-                required: true
             },
             created_At: {
                 type: Date,
                 default: Date.now
             }
         }
-    ]
+    ],
+    Image: {
+        type: String,
+        default: 'https://imgs.search.brave.com/B4qy_aiNEPygH7a24ZhhqztXmMO0XEQlwGD0gaB9StQ/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ4MmVjMGNlZjEw/MTRjMGI1ZTRhNzAu/cG5n'
+    }
 },
     {
         timestamps: true

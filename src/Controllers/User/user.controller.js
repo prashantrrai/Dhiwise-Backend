@@ -2,7 +2,7 @@ const { STATUS_ERROR, MESSAGE_ERROR, MESSAGE_FETCHED, STATUS_OK, MESSAGE_DELETED
 const service = require("../../Services/User/user.service");
 
 
-const getUser = async (req, res) => {
+const GetUser = async (req, res) => {
     try {
         const userData = await service.getUser();
 
@@ -12,7 +12,7 @@ const getUser = async (req, res) => {
             response: userData
         })
     } catch (error) {
-        console.error("ERROR IN getUser CONTROLLER:", error);
+        console.error("ERROR IN GetUser CONTROLLER:", error);
         return res.status(STATUS_ERROR).json({
             success: false,
             message: MESSAGE_ERROR,
@@ -21,7 +21,7 @@ const getUser = async (req, res) => {
     }
 }
 
-const getUserById = async (req, res) => {
+const GetUserById = async (req, res) => {
     try {
         const { id } = req.params;
         const userData = await service.getUserById(id);
@@ -32,7 +32,7 @@ const getUserById = async (req, res) => {
             response: userData
         })
     } catch (error) {
-        console.error("ERROR IN getUserById CONTROLLER:", error);
+        console.error("ERROR IN GetUserById CONTROLLER:", error);
         return res.status(STATUS_ERROR).json({
             success: false,
             message: MESSAGE_ERROR,
@@ -41,7 +41,7 @@ const getUserById = async (req, res) => {
     }
 }
 
-const editUser = async (req, res) => {
+const EditUser = async (req, res) => {
     try {
         const { id } = req.params;
         const userData = req.body;
@@ -54,7 +54,7 @@ const editUser = async (req, res) => {
             response: updatedUser
         })
     } catch (error) {
-        console.error("ERROR IN editUser CONTROLLER:", error);
+        console.error("ERROR IN EditUser CONTROLLER:", error);
         return res.status(STATUS_ERROR).json({
             success: false,
             message: error.message
@@ -62,7 +62,7 @@ const editUser = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
+const RemoveUser = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -73,7 +73,7 @@ const deleteUser = async (req, res) => {
             message: MESSAGE_DELETED
         })
     } catch (error) {
-        console.error("ERROR IN deleteUser CONTROLLER:", error);
+        console.error("ERROR IN RemoveUser CONTROLLER:", error);
         return res.status(STATUS_ERROR).json({
             success: false,
             message: error.message,
@@ -82,4 +82,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { getUser, getUserById, editUser, deleteUser };
+module.exports = { GetUser, GetUserById, EditUser, RemoveUser };
