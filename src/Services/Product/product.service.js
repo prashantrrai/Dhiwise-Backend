@@ -20,6 +20,16 @@ const GetProductById = async (Id) => {
     }
 }
 
+const GetProductByIds = async (Id) => {
+    try {
+        const productData = await Product.findById(Id);
+        return productData;
+    } catch (error) {
+        console.error("ERROR IN GetProductById SERVICE:", error);
+        throw error;
+    }
+}
+
 const CreateProducts = async (productData) => {
     try {
         const { name, description, price, stock, category, supplier, reviews } = productData;
@@ -93,4 +103,4 @@ const RemoveProduct = async (id) => {
     }
 }
 
-module.exports = { GetProducts, GetProductById, CreateProducts, EditProduct, RemoveProduct };
+module.exports = { GetProducts, GetProductById, GetProductByIds, CreateProducts, EditProduct, RemoveProduct };

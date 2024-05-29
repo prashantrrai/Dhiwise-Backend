@@ -40,6 +40,21 @@ const GetProductById = async (req, res) => {
     }
 }
 
+const GetProductByIds = async (id) => {
+    try {
+        const productData = await service.GetProductById(id);
+        return productData;
+    } catch (error) {
+        console.error("ERROR IN GetProductByIds CONTROLLER:", error);
+        return res.status(STATUS_ERROR).json({
+            success: false,
+            message: MESSAGE_ERROR,
+            error: error.message
+        })
+    }
+}
+
+
 const CreateProducts = async (req, res) => {
     try {
         const productData = await service.CreateProducts(req.body);
@@ -102,4 +117,4 @@ const RemoveProduct = async (req, res) => {
 }
 
 
-module.exports = { GetProducts, GetProductById, CreateProducts, EditProduct, RemoveProduct };
+module.exports = { GetProducts, GetProductById, GetProductByIds, CreateProducts, EditProduct, RemoveProduct };

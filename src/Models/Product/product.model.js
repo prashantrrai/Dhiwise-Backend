@@ -58,7 +58,11 @@ const productSchema = new Schema({
                 default: Date.now
             }
         }
-    ]
+    ],
+    Image: {
+        type: String,
+        default: 'https://imgs.search.brave.com/B4qy_aiNEPygH7a24ZhhqztXmMO0XEQlwGD0gaB9StQ/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ4MmVjMGNlZjEw/MTRjMGI1ZTRhNzAu/cG5n'
+    }
 },
     {
         timestamps: true

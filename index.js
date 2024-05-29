@@ -14,6 +14,7 @@ const homeRouter = require("./src/Routes/Home/home.route");
 const userRouter = require("./src/Routes/User/user.route");
 const authRouter = require("./src/Routes/Authentication/auth.route");
 const productRouter = require("./src/Routes/Product/product.route");
+const paymentRouter = require("./src/Routes/Payment/payment.route");
 
 
 // setting configurations
@@ -34,6 +35,7 @@ apiRouter.use('/home', homeRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/product', productRouter);
+apiRouter.use('/payment', paymentRouter);
 
 // Use the apiRouter
 app.use('/api/v1', apiRouter);
